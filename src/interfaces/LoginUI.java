@@ -101,7 +101,7 @@ public class LoginUI {
 
     // Méthode pour vérifier les identifiants dans la base de données
     private boolean checkLogin(String email, String password) {
-       
+      
         
         try (Connection conn = BD.DBconnection.getConnection()) {
             String sql = "SELECT * FROM clients WHERE email = ? AND mdp = ?";
@@ -110,12 +110,13 @@ public class LoginUI {
             statement.setString(2, password); // En réalité, il est préférable de comparer le mot de passe haché
             ResultSet resultSet = statement.executeQuery();
 
-            // Si un utilisateur est trouvé avec les identifiants, retourner vrai
-            return resultSet.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+	        // Si un utilisateur est trouvé avec les identifiants, retourner vrai
+	        return resultSet.next();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       return false;
     }
 
     // Méthode pour ouvrir le DashboardUI

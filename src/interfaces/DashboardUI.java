@@ -1,13 +1,12 @@
 package interfaces;
-
-
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.net.URL;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-
 
 
 public class DashboardUI {
@@ -57,13 +55,29 @@ public class DashboardUI {
         JPanel welcomePanel = new JPanel(new GridLayout(1, 2));
         welcomePanel.setBackground(Color.BLACK);
         welcomePanel.setPreferredSize(new Dimension(frame.getWidth(), 250));
+        JLabel imageLabel = new JLabel();
+        ImageIcon icon = new ImageIcon("image/img1.jpg");
+        imageLabel.setIcon(icon);
+        if (icon != null) {
+        	System.out.println("Image trouvée !");
+        } else {
+            System.out.println("Image non trouvée !");
+            imageLabel.setText("Image non disponible");
+            imageLabel.setForeground(Color.WHITE);
+        }
 
-        JLabel imageLabel = new JLabel(new ImageIcon("C:\\Users\\Laria\\eclipse-workspace\\ProjetSIA\\image\\img1.jpg")); // Image de gauche
-        JLabel welcomeText = new JLabel("<html><div style='color:white;padding:20px;'><h1>Bienvenue chez AirBlio</h1>\n" +
-                "Nous mettons notre expertise à votre service pour vous proposer du matériel de qualité.<br>" +
-                "AirBlio, c'est des interventions de qualité et rapides.</div></html>");
-        welcomePanel.add(imageLabel);
-        welcomePanel.add(welcomeText);
+        // Texte de bienvenue avec formatage HTML
+        JLabel welcomeText = new JLabel("<html><div style='color:white; text-align:center; padding:20px;'>" +
+                "<h1>Bienvenue chez AirBlio</h1>" +
+                "<p>Nous mettons notre expertise à votre service pour vous proposer du matériel de qualité.</p>" +
+                "<p>AirBlio, c'est des interventions de qualité et rapides.</p>" +
+                "</div></html>");
+
+        welcomeText.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Ajouter l’image et le texte au panneau
+        welcomePanel.add(imageLabel, BorderLayout.NORTH);
+        welcomePanel.add(welcomeText, BorderLayout.CENTER);
 
         // 🏗️ Section des matériaux (grid)
         JPanel materialsPanel = new JPanel(new GridLayout(2, 3, 10, 10));
