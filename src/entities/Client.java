@@ -47,5 +47,7 @@ public class Client {
 	public void setInterventions(List<Intervention> interventions) {
 		this.interventions = interventions;
 	}
+	
+	
 }
 
