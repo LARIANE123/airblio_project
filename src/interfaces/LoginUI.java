@@ -101,24 +101,24 @@ public class LoginUI {
 
     // Méthode pour vérifier les identifiants dans la base de données
     private boolean checkLogin(String email, String password) {
-        // Connexion à la base de données
-        String dbURL = "jdbc:mysql://localhost:3306/sia"; // Remplacez par votre URL de base de données
-        String dbUsername = "root"; // Remplacez par votre nom d'utilisateur
-        String dbPassword = ""; // Remplacez par votre mot de passe de base de données
+        Connection conn;
+        String sql = "SELECT * FROM clients WHERE email = ? AND mdp = ?";
+        PreparedStatement statement;
         
-        try (Connection conn = DriverManager.getConnection(dbURL, dbUsername, dbPassword)) {
-            String sql = "SELECT * FROM clients WHERE email = ? AND mdp = ?";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, email);
-            statement.setString(2, password); // En réalité, il est préférable de comparer le mot de passe haché
-            ResultSet resultSet = statement.executeQuery();
+		try {
+			conn = BD.DBconnection.getConnection();
+			statement = conn.prepareStatement(sql);
+			statement.setString(1, email);
+	        statement.setString(2, password); // En réalité, il est préférable de comparer le mot de passe haché
+	        ResultSet resultSet = statement.executeQuery();
 
-            // Si un utilisateur est trouvé avec les identifiants, retourner vrai
-            return resultSet.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+	        // Si un utilisateur est trouvé avec les identifiants, retourner vrai
+	        return resultSet.next();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       return false;
     }
 
     // Méthode pour ouvrir le DashboardUI
