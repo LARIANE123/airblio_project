@@ -101,12 +101,9 @@ public class LoginUI {
 
     // Méthode pour vérifier les identifiants dans la base de données
     private boolean checkLogin(String email, String password) {
-        // Connexion à la base de données
-        String dbURL = "jdbc:mysql://localhost:3306/sia"; // Remplacez par votre URL de base de données
-        String dbUsername = "root"; // Remplacez par votre nom d'utilisateur
-        String dbPassword = ""; // Remplacez par votre mot de passe de base de données
+       
         
-        try (Connection conn = DriverManager.getConnection(dbURL, dbUsername, dbPassword)) {
+        try (Connection conn = BD.DBconnection.getConnection()) {
             String sql = "SELECT * FROM clients WHERE email = ? AND mdp = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, email);
